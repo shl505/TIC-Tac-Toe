@@ -27,9 +27,9 @@ class Game:
       
   
 class Player:
-  def __init__(self, name, player_shape):
+  def __init__(self, name, marker):
     self.name = name
-    self.player_shape = player_shape
+    self.marker = marker
 
 class Board:
   def __init__(self):
@@ -42,10 +42,10 @@ class Board:
     return '{}|{}|{}\n-----\n{}|{}|{}\n-----\n{}|{}|{}\n'.format(*self.board)
 
   def make_move(self, player, plase):
-    if self.board[plase] != ' ':
-      raise ValueError(f"Plase {plase} is already taken")
-    self.board[plase] = player.player_shape
-    return self.is_winner(player.player_shape)
+    if self.board[plase] not in '012345678' or plase < 0 or plase > 8:
+      raise ValueError(f"Plase {plase} is out of range")
+    self.board[plase] = marker
+    return self.is_winner(marker)
   
   def is_winner(self, player_shape):
     winner_positions = [

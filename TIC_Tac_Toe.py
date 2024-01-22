@@ -49,7 +49,8 @@ class Board:
       [0, 3, 6],
       [1, 4, 7],
       [2, 5, 8],
-      [0, 4, 8]
+      [0, 4, 8],
+      [2, 4, 6]
     ]
     return any([all(self.board[x] == player_shape for x in pos) for pos in winner_positions])
 

@@ -3,22 +3,23 @@ class Game:
     self.board = Board()
     self.players = [player1, player2]
     self.turn = False
-  
+
   def play(self):
     while True:
       current_player = self.players[int(self.turn)]
       print(self.board.to_string())
       move = int(input(f'This is current board, {current_player.name}\n'))
-      
-      try:
-        is_winner = self.make_move(current_player, move)
-        break
+      while True:
+        try:
+          is_winner = self.board.make_move(current_player, move)
+          break
 
-      except ValueError:
-        move = int(input('illegal move, please try again\n'))
+        except ValueError:
+          move = int(input('illegal move, please try again\n'))
       self.turn = not self.turn
 
       if is_winner:
+        print('Congratulations you won!')
         break
   
 class Player:
@@ -51,4 +52,4 @@ class Board:
     ]
     return any([all(self.board[x] == player_shape for x in pos) for pos in winner_positions])
 
-Game(Player("Shloimy", 'o'), Player('haiim', 'x')).play()
+Game(Player(input('Enter teh name of player 1:\n'), 'o'), Player(input('Enter teh name of player 2:\n'), 'x')).play()

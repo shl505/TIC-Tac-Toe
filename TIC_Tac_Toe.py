@@ -17,11 +17,14 @@ class Game:
         except ValueError:
           move = int(input('illegal move, please try again\n'))
       self.turn = not self.turn
-
-      if is_winner:
-        print(self.board.to_string())
-        print('Congratulations you won!')
+      if is_winner or self.board.is_draw():
         break
+    print(self.board.to_string())
+    if is_winner:
+      print(f'Congratulations {current_player.name} you won!')
+    else:
+      print('It\'s a tie!')
+      
   
 class Player:
   def __init__(self, name, player_shape):
@@ -30,8 +33,11 @@ class Player:
 
 class Board:
   def __init__(self):
-    self.board = [' '] * 9
+    self.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
 
+  def is_draw(self):
+    return all(str(i) not in self.board for i in range(9))
+    
   def to_string(self):
     return '{}|{}|{}\n-----\n{}|{}|{}\n-----\n{}|{}|{}\n'.format(*self.board)
 
@@ -43,14 +49,14 @@ class Board:
   
   def is_winner(self, player_shape):
     winner_positions = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
+      (0, 1, 2),
+      (3, 4, 5),
+      (6, 7, 8),
+      (0, 3, 6),
+      (1, 4, 7),
+      (2, 5, 8),
+      (0, 4, 8),
+      (2, 4, 6)
     ]
     return any([all(self.board[x] == player_shape for x in pos) for pos in winner_positions])
 

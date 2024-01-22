@@ -19,6 +19,7 @@ class Game:
       self.turn = not self.turn
 
       if is_winner:
+        print(self.board.to_string())
         print('Congratulations you won!')
         break
   

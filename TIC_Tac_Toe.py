@@ -11,7 +11,7 @@ class Game:
       move = int(input(f'This is current board, {current_player.name}\n'))
       while True:
         try:
-          is_winner = self.board.make_move(current_player, move)
+          is_winner = self.board.make_move(current_player.player_shape, move)
           break
 
         except ValueError:
@@ -27,9 +27,9 @@ class Game:
       
   
 class Player:
-  def __init__(self, name, marker):
+  def __init__(self, name, player_shape):
     self.name = name
-    self.marker = marker
+    self.player_shape = player_shape
 
 class Board:
   def __init__(self):
@@ -41,7 +41,7 @@ class Board:
   def to_string(self):
     return '{}|{}|{}\n-----\n{}|{}|{}\n-----\n{}|{}|{}\n'.format(*self.board)
 
-  def make_move(self, player, plase):
+  def make_move(self, marker, plase):
     if self.board[plase] not in '012345678' or plase < 0 or plase > 8:
       raise ValueError(f"Plase {plase} is out of range")
     self.board[plase] = marker
